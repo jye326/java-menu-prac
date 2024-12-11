@@ -7,11 +7,12 @@ public enum OUTPUT_MESSAGE {
     RESULT_PRINT("메뉴 추천 결과입니다.\n"
             + "[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]"),
     END_MESSAGE("추천을 완료했습니다."),
-
-    divider("===================================="),
-    doubleTab("\t\t"),
-    // format 사용한 가변 출력 문구 예시
-    PAY_AMOUNT("내실돈\t\t\t %s")
+    COLON(":"),
+    COMMA(","),
+    CATEGORY_PRE("[ 카테고리 | "),
+    CLOSE(" ]"),
+    DELIMITER(" | "),
+    ASK_HATES("(이)가 못 먹는 메뉴를 입력해 주세요."),
 
     ;
     private final String message;
