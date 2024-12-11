@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Scanner;
 import menu.domain.Category;
 import menu.model.RecommendationModel;
+import menu.util.NUMBER_CONSTANT;
+import menu.util.OUTPUT_MESSAGE;
 import menu.view.FileInputView;
 import menu.view.InputView;
 import menu.view.OutputView;
@@ -21,9 +23,9 @@ public class MenuController {
         List<Category> categories = new ArrayList<>();
         Scanner scanner = new Scanner(fileString);
         while (scanner.hasNextLine()) {
-            String[] lines = scanner.nextLine().split(":");
-            Category category = new Category(lines[0].trim());  // 카테고리 명
-            for(String menu : lines[1].split(",")) {
+            String[] lines = scanner.nextLine().split(OUTPUT_MESSAGE.COLON.toString());
+            Category category = new Category(lines[NUMBER_CONSTANT.ZERO.getInt()].trim());  // 카테고리 명
+            for (String menu : lines[NUMBER_CONSTANT.ONE.getInt()].split(OUTPUT_MESSAGE.COMMA.toString())) {
                 category.addMenu(menu.trim());
             }
             categories.add(category);
@@ -32,13 +34,13 @@ public class MenuController {
     }
 
     public void printCategories(RecommendationModel model) {
-        String ret = "[ 카테고리 | ";
+        String ret = OUTPUT_MESSAGE.CATEGORY_PRE.toString();
         List<String> categoryNameList = new ArrayList<>();
-        for (int i=0;i<categories.size();i++) {
+        for (int i = 0; i < categories.size(); i++) {
             categoryNameList.add(model.getCategory(i));
         }
-        ret += String.join(" | ", categoryNameList);
-        ret += " ]";
+        ret += String.join(OUTPUT_MESSAGE.DELIMITER.toString(), categoryNameList);
+        ret += OUTPUT_MESSAGE.CLOSE.toString();
         System.out.println(ret);
     }
 
@@ -58,7 +60,7 @@ public class MenuController {
     }
 
     private void recommend(RecommendationModel model) {
-        for (int i = 0;i<5;i++){
+        for (int i = 0; i < 5; i++) {
             model.recommendOneDay(getMenuListWithCategoryName(model.getCategory(i)));
         }
     }
@@ -74,13 +76,14 @@ public class MenuController {
 
 
     public void updateHates(RecommendationModel model) {
-        for (int i = 0; i < model.getCoachesNumber(); i++) {
-            System.out.println(model.getCoachName(i) +"(이)가 못 먹는 메뉴를 입력해 주세요.");
+        for (int i = NUMBER_CONSTANT.ZERO.getInt(); i < model.getCoachesNumber(); i++) {
+            System.out.println(model.getCoachName(i) + OUTPUT_MESSAGE.ASK_HATES);
             model.updateCoachesHate(i, InputView.readCoachesHate());
         }
     }
+
     private void setCategoriesForDay(RecommendationModel model) {
-        for (int i = 0;i<5;i++){
+        for (int i = NUMBER_CONSTANT.ZERO.getInt(); i < NUMBER_CONSTANT.FIVE.getInt(); i++) {
             model.addCategoryOneDay(categories);
         }
     }
