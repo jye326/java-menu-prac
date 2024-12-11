@@ -22,7 +22,7 @@ public class Coach {
 
     // 2개 이하, 이미 있는 거 제외 추가 가능
     public void addHates(String hate) {
-        if ((!hates.contains(hate)) && hates.size()<2) {
+        if ((!hates.contains(hate)) && hates.size() < 2) {
             hates.add(hate);
         }
     }

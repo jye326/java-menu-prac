@@ -6,6 +6,8 @@ import java.util.List;
 
 import menu.domain.Category;
 import menu.domain.Coach;
+import menu.util.NUMBER_CONSTANT;
+import menu.util.OUTPUT_MESSAGE;
 
 
 public class RecommendationModel {
@@ -50,19 +52,20 @@ public class RecommendationModel {
             coachList.get(coachIndex).addHates(hate);
         }
     }
+
     // 0~4 : 월 ~ 목요일
     // 하루의 카테고리 추천
     // 나중에 리팩토링 // 지금은 걍 indexof로 찾자.
     public void addCategoryOneDay(List<Category> categories) {
-        int index = Randoms.pickNumberInRange(1,5) - 1 ;
-        String todayCategory=categories.get(index).getName();
-        while (true){
+        int index = Randoms.pickNumberInRange(NUMBER_CONSTANT.ONE.getInt(), NUMBER_CONSTANT.FIVE.getInt()) - NUMBER_CONSTANT.ONE.getInt();
+        String todayCategory = categories.get(index).getName();
+        while (true) {
             if (underTwoCategory(todayCategory)) {
                 categoryForDay.add(todayCategory);
                 return;
             }
-            index = Randoms.pickNumberInRange(1,5) - 1 ;
-            todayCategory=categories.get(index).getName();
+            index = Randoms.pickNumberInRange(NUMBER_CONSTANT.ONE.getInt(), NUMBER_CONSTANT.FIVE.getInt()) - NUMBER_CONSTANT.ONE.getInt();
+            todayCategory = categories.get(index).getName();
         }
     }
 
@@ -80,7 +83,7 @@ public class RecommendationModel {
                 count++;
             }
         }
-        return count<2;
+        return count < 2;
     }
 
     // 오늘의 메뉴 리스트임.
@@ -102,9 +105,9 @@ public class RecommendationModel {
 
     public void printRecommendationResult() {
         for (Coach coach : coachList) {
-            String ret = "[ " + coach.getName() + " | ";
-            ret += String.join(" | ", coach.getRecommendations());
-            ret += " ]";
+            String ret = OUTPUT_MESSAGE.OPEN.toString() + coach.getName() + OUTPUT_MESSAGE.DELIMITER.toString();
+            ret += String.join(OUTPUT_MESSAGE.DELIMITER.toString(), coach.getRecommendations());
+            ret += OUTPUT_MESSAGE.CLOSE.toString();
             System.out.println(ret);
         }
     }

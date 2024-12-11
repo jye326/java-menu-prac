@@ -10,6 +10,7 @@ public enum OUTPUT_MESSAGE {
     COLON(":"),
     COMMA(","),
     CATEGORY_PRE("[ 카테고리 | "),
+    OPEN("[ "),
     CLOSE(" ]"),
     DELIMITER(" | "),
     ASK_HATES("(이)가 못 먹는 메뉴를 입력해 주세요."),
