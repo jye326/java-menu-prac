@@ -13,6 +13,15 @@ public class OutputView {
         System.out.println(OUTPUT_MESSAGE.ASK_COACHES_NAME);
     }
 
+    public static void printResultMessage() {
+        System.out.println(OUTPUT_MESSAGE.RESULT_PRINT);
+    }
+
+    public static void printEndMessage() {
+        System.out.println(OUTPUT_MESSAGE.END_MESSAGE);
+    }
+
+
     // 숫자를 세 자리마다 쉼표 찍어서 String 으로 반환
     private String formatNumber(Long number) {
         return NumberFormat.getInstance().format(number);
