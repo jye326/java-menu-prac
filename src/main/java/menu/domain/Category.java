@@ -19,6 +19,11 @@ public class Category {
         return name;
     }
 
+    public List<String> getMenu() {
+        return menu;
+    }
+
+
     @Override
     public String toString() {
         String ret ="name : " + name + " menu : ";

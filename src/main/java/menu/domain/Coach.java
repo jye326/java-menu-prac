@@ -16,6 +16,10 @@ public class Coach {
         return name;
     }
 
+    public List<String> getRecommendations() {
+        return recommendations;
+    }
+
     // 2개 이하, 이미 있는 거 제외 추가 가능
     public void addHates(String hate) {
         if ((!hates.contains(hate)) && hates.size()<2) {
@@ -30,6 +34,24 @@ public class Coach {
             System.out.print(hate);
         }
         System.out.println();
+    }
+
+    public void printRecommendation() {
+        for (String recommendation : recommendations) {
+            System.out.print(recommendation);
+        }
+        System.out.println();
+    }
+
+    // 추가 가능
+    public boolean addPossible(String menu) {
+        return !hates.contains(menu) && !recommendations.contains(menu);
+    }
+
+    public void addRecommendation(String recommendation) {
+        if (addPossible(recommendation)) {
+            recommendations.add(recommendation);
+        }
     }
 
 }
