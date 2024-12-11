@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import menu.util.REGEX_PATTERN;
 
-public class inputView {
+public class InputView {
     public List<String> readCoachesName() {
         List<String> coachesName = new ArrayList<String>();
         String nameList = Console.readLine();
@@ -24,7 +24,7 @@ public class inputView {
         return matcher.matches();
     }
 
-    public List<String> readCoachesHate() {
+    public static List<String> readCoachesHate() {
         List<String> coachesHate = new ArrayList<>();
         String hateList = Console.readLine();
         if (hateListValidation(hateList)) {
@@ -34,7 +34,7 @@ public class inputView {
         throw new IllegalArgumentException("hateList input error");
     }
 
-    private boolean hateListValidation(String nameList) {
+    private static boolean hateListValidation(String nameList) {
         Pattern pattern = Pattern.compile(REGEX_PATTERN.HATE_LIST_PATTERN.getRegexPattern());
         Matcher matcher = pattern.matcher(nameList);
         return matcher.matches();
