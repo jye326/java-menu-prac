@@ -1,17 +1,25 @@
 package menu.model;
 
+import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.List;
+
+import menu.domain.Category;
 import menu.domain.Coach;
+
 
 public class RecommendationModel {
     private List<Coach> coachList = new ArrayList<Coach>();
-    private List<String> categoryList = new ArrayList<>();
+    private List<String> categoryForDay = new ArrayList<>();    // 요일별 카테고리
 
     public void updateCoachesName(List<String> coachesNameList) {
         for (String coachName : coachesNameList) {
             coachList.add(new Coach(coachName));
         }
+    }
+
+    public String getCategory(int i) {
+        return categoryForDay.get(i);
     }
 
     public void printCoachesList() {
@@ -20,9 +28,10 @@ public class RecommendationModel {
         }
     }
 
-    public void printCoachesHateList() {
+    public void printCoachesRecommendList() {
         for (Coach coach : coachList) {
-            coach.printName_hates();
+            System.out.println(coach.getName());
+            coach.printRecommendation();
         }
     }
 
@@ -39,6 +48,64 @@ public class RecommendationModel {
         // coachIndex번째 코치의 싫어하는 목록 업데이트
         for (String hate : hateList) {
             coachList.get(coachIndex).addHates(hate);
+        }
+    }
+    // 0~4 : 월 ~ 목요일
+    // 하루의 카테고리 추천
+    // 나중에 리팩토링 // 지금은 걍 indexof로 찾자.
+    public void addCategoryOneDay(List<Category> categories) {
+        int index = Randoms.pickNumberInRange(1,5) - 1 ;
+        String todayCategory=categories.get(index).getName();
+        while (true){
+            if (underTwoCategory(todayCategory)) {
+                categoryForDay.add(todayCategory);
+                return;
+            }
+            index = Randoms.pickNumberInRange(1,5) - 1 ;
+            todayCategory=categories.get(index).getName();
+        }
+    }
+
+
+    public void printDays() {
+        for (String category : categoryForDay) {
+            System.out.println(category);
+        }
+    }
+
+    private boolean underTwoCategory(String category) {
+        int count = 0;
+        for (String c : categoryForDay) {
+            if (c.equals(category)) {
+                count++;
+            }
+        }
+        return count<2;
+    }
+
+    // 오늘의 메뉴 리스트임.
+    public void recommendOneDay(List<String> todayMenuList) {
+        for (Coach coach : coachList) {
+            recommendToOneCoach(todayMenuList, coach);  // 각 코치별로 다 추천
+        }
+    }
+
+    private static void recommendToOneCoach(List<String> todayMenuList, Coach coach) {
+        while (true) {
+            String menu = Randoms.shuffle(todayMenuList).get(0);    // 이녀석을 추가할 수 있으면 추가함
+            if (coach.addPossible(menu)) {
+                coach.addRecommendation(menu);
+                return;// 추가 성공하면 나가
+            }
+        }
+    }
+
+    public void printRecommendationResult() {
+        for (Coach coach : coachList) {
+            String ret = "[ " + coach.getName() + " | ";
+            ret += String.join(" | ", coach.getRecommendations());
+            ret += " ]";
+            System.out.println(ret);
         }
     }
 
