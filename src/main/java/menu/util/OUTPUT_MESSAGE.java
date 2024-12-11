@@ -4,6 +4,9 @@ public enum OUTPUT_MESSAGE {
     // 일반 정적 출력 문구 예시
     openingComment("점심 메뉴 추천을 시작합니다.\n"),
     ASK_COACHES_NAME("코치의 이름을 입력해 주세요. (, 로 구분)"),
+    RESULT_PRINT("메뉴 추천 결과입니다.\n"
+            + "[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]"),
+    END_MESSAGE("추천을 완료했습니다."),
 
     divider("===================================="),
     doubleTab("\t\t"),
